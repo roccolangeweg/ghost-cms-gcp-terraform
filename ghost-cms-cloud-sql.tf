@@ -9,6 +9,11 @@ resource "google_sql_database_instance" "ghost-cms-mysql" {
   settings {
     tier = "db-f1-micro"
   }
+
+  # Creating an instance takes around ~18 minutes, so we need to increase the timeout from default (15).
+  timeouts {
+    create = "30m"
+  }
 }
 
 resource "google_sql_database" "ghost-cms-mysql-database"{
