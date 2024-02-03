@@ -23,6 +23,21 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
         mount_path = "/cloudsql"
         name       = "cloudsql"
       }
+
+      ports {
+        name = "http1"
+        container_port = 2368
+      }
+
+      env {
+        name = "database__client"
+        value = "mysql"
+      }
+      
+      env {
+        name = "database__connection__socketPath"
+        value = "/cloudsql/${google_sql_database_instance.ghost-cms-mysql.connection_name}"
+      }
     }
   }
 }
