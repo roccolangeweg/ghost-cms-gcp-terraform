@@ -20,8 +20,8 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
       image = "ghost:5.78.0"
 
       volume_mounts {
-        mount_path = "cloudsql"
-        name       = "/cloudsql"
+        mount_path = "/cloudsql"
+        name       = "cloudsql"
       }
     }
   }
