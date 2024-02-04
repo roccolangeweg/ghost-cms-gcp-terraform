@@ -3,8 +3,6 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
   location = var.GCP_REGION
   ingress  = "INGRESS_TRAFFIC_ALL"
 
-  launch_stage = "BETA"
-
   template {
 
     scaling {
@@ -12,10 +10,7 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
     }
 
     vpc_access {
-      network_interfaces {
-        network    = google_compute_network.ghost_cms_vpc_network.name
-        subnetwork = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
-      }
+      connector = google_vpc_access_connector.ghost_cms_vpc_connector.id
       egress = "PRIVATE_RANGES_ONLY"
     }
 
