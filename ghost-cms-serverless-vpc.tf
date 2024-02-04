@@ -1,5 +1,6 @@
 resource "google_compute_network" "ghost-cms-vpc-network" {
   name = "ghost-cms-vpc-network"
+  auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "ghost-cms-vpc-subnetwork" {
