@@ -1,7 +1,7 @@
 resource "google_cloud_run_v2_service" "ghost-cms" {
   name     = "ghost-cms"
   location = var.GCP_REGION
-  ingress = "INGRESS_TRAFFIC_ALL"
+  ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
 
@@ -25,18 +25,33 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
       }
 
       ports {
-        name = "http1"
+        name           = "http1"
         container_port = 2368
       }
 
       env {
-        name = "database__client"
+        name  = "database__client"
         value = "mysql"
       }
-      
+
       env {
-        name = "database__connection__socketPath"
+        name  = "database__connection__socketPath"
         value = "/cloudsql/${google_sql_database_instance.ghost-cms-mysql.connection_name}"
+      }
+
+      env {
+        name  = "database__connection__user"
+        value = google_sql_user.ghost-cms-mysql-user.name
+      }
+
+      env {
+        name  = "database__connection__password"
+        value = google_sql_user.ghost-cms-mysql-user.password
+      }
+
+      env {
+        name  = "database__connection__database"
+        value = google_sql_database.ghost-cms-mysql-database.name
       }
     }
   }
