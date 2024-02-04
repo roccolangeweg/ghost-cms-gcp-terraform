@@ -12,10 +12,11 @@ resource "google_compute_subnetwork" "ghost_cms_vpc_subnetwork" {
 
 resource "google_vpc_access_connector" "ghost_cms_vpc_connector" {
   name = "ghost-cms-vpc-connector"
+  machine_type  = "f1-micro"
 
   subnet {
     name = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
   }
-  ip_cidr_range = google_compute_subnetwork.ghost_cms_vpc_subnetwork.ip_cidr_range
-  machine_type  = "f1-micro"
+
+
 }
