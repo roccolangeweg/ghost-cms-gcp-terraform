@@ -18,7 +18,7 @@ resource "google_sql_database_instance" "ghost_cms_mysql" {
     create = "30m"
   }
 
-  deletion_protection = false
+  deletion_protection = "false"
 }
 
 resource "google_sql_database" "ghost_cms_mysql_database" {
