@@ -11,7 +11,6 @@ resource "google_compute_subnetwork" "ghost-cms-vpc-subnetwork" {
 
 resource "google_vpc_access_connector" "ghost-cms-vpc-access-connector" {
   name    = "vpc-access-connector"
-  ip_cidr_range = "10.4.0.0/28"
   machine_type = "f1-micro"
 
   subnet {
