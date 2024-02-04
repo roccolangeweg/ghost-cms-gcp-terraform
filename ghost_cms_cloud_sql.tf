@@ -17,6 +17,8 @@ resource "google_sql_database_instance" "ghost_cms_mysql" {
   timeouts {
     create = "30m"
   }
+
+  deletion_protection = false
 }
 
 resource "google_sql_database" "ghost_cms_mysql_database" {
