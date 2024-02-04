@@ -18,5 +18,5 @@ resource "google_vpc_access_connector" "ghost_cms_vpc_connector" {
     name = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
   }
 
-
+  depends_on = [google_project_service.vpcaccess]
 }
