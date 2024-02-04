@@ -8,6 +8,9 @@ resource "google_sql_database_instance" "ghost-cms-mysql" {
   database_version = "MYSQL_8_0"
   settings {
     tier = "db-f1-micro"
+    ip_configuration {
+      private_network = google_compute_network.ghost-cms-vpc-network.self_link
+    }
   }
 
   # Creating an instance takes around ~18 minutes, so we need to increase the timeout from default (15).

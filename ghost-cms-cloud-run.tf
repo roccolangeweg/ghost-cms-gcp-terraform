@@ -9,20 +9,13 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
       max_instance_count = 2
     }
 
-    volumes {
-      name = "cloudsql"
-      cloud_sql_instance {
-        instances = [google_sql_database_instance.ghost-cms-mysql.connection_name]
-      }
+    vpc_access {
+      connector = google_vpc_access_connector.ghost-cms-vpc-access-connector.id
+      egress = "PRIVATE_RANGES_ONLY"
     }
 
     containers {
       image = "ghost:5.78.0"
-
-      volume_mounts {
-        mount_path = "/cloudsql"
-        name       = "cloudsql"
-      }
 
       ports {
         name           = "http1"
@@ -35,8 +28,8 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
       }
 
       env {
-        name  = "database__connection__socketPath"
-        value = "/cloudsql/${google_sql_database_instance.ghost-cms-mysql.connection_name}"
+        name  = "database__connection__host"
+        value = google_sql_database_instance.ghost-cms-mysql.private_ip_address
       }
 
       env {
