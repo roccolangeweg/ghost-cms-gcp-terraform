@@ -3,7 +3,7 @@ resource "random_password" "ghost_cms_mysql_password" {
   special = true
 }
 
-resource "google_sql_database_instance" "ghost_cms_mysql" {
+resource "google_sql_database_instance" "ghost-cms-mysql" {
   name             = "ghost-cms-mysql-1"
   database_version = "MYSQL_8_0"
   settings {
@@ -23,11 +23,11 @@ resource "google_sql_database_instance" "ghost_cms_mysql" {
 
 resource "google_sql_database" "ghost_cms_mysql_database" {
   name     = "ghost-cms"
-  instance = google_sql_database_instance.ghost_cms_mysql.name
+  instance = google_sql_database_instance.ghost-cms-mysql.name
 }
 
 resource "google_sql_user" "ghost_cms_mysql_user" {
   name     = "ghost-cms"
-  instance = google_sql_database_instance.ghost_cms_mysql.name
+  instance = google_sql_database_instance.ghost-cms-mysql.name
   password = random_password.ghost_cms_mysql_password.result
 }

@@ -34,7 +34,7 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
 
       env {
         name  = "database__connection__host"
-        value = google_sql_database_instance.ghost_cms_mysql.private_ip_address
+        value = google_sql_database_instance.ghost-cms-mysql.private_ip_address
       }
 
       env {
