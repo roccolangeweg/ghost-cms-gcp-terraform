@@ -1,7 +1,9 @@
-resource "google_cloud_run_v2_service" "ghost-cms" {
+resource "google_cloud_run_v2_service" "ghost_cms" {
   name     = "ghost-cms"
   location = var.GCP_REGION
   ingress  = "INGRESS_TRAFFIC_ALL"
+
+  launch_stage = "BETA"
 
   template {
 
@@ -10,7 +12,10 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
     }
 
     vpc_access {
-      connector = google_vpc_access_connector.ghost-cms-vpc-access-connector.id
+      network_interfaces {
+        network    = google_compute_network.ghost_cms_vpc_network.name
+        subnetwork = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
+      }
       egress = "PRIVATE_RANGES_ONLY"
     }
 
@@ -29,22 +34,22 @@ resource "google_cloud_run_v2_service" "ghost-cms" {
 
       env {
         name  = "database__connection__host"
-        value = google_sql_database_instance.ghost-cms-mysql.private_ip_address
+        value = google_sql_database_instance.ghost_cms_mysql.private_ip_address
       }
 
       env {
         name  = "database__connection__user"
-        value = google_sql_user.ghost-cms-mysql-user.name
+        value = google_sql_user.ghost_cms_mysql_user.name
       }
 
       env {
         name  = "database__connection__password"
-        value = google_sql_user.ghost-cms-mysql-user.password
+        value = google_sql_user.ghost_cms_mysql_user.password
       }
 
       env {
         name  = "database__connection__database"
-        value = google_sql_database.ghost-cms-mysql-database.name
+        value = google_sql_database.ghost_cms_mysql_database.name
       }
     }
   }
