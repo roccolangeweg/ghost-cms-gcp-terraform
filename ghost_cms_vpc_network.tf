@@ -13,7 +13,7 @@ resource "google_compute_subnetwork" "ghost_cms_vpc_subnetwork" {
 resource "google_vpc_access_connector" "ghost_cms_vpc_connector" {
   name = "ghost-cms-vpc-connector"
 
-  subnet = {
+  subnet {
     name = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
   }
   ip_cidr_range = google_compute_subnetwork.ghost_cms_vpc_subnetwork.ip_cidr_range
