@@ -18,6 +18,10 @@ resource "google_sql_database_instance" "ghost-cms-mysql" {
     create = "30m"
   }
 
+  depends_on = [
+    google_vpc_access_connector.ghost_cms_vpc_connector
+  ]
+
   deletion_protection = "false"
 }
 
