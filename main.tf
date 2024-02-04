@@ -19,3 +19,7 @@ resource "google_project_service" "run" {
 resource "google_project_service" "container" {
   service = "container.googleapis.com"
 }
+
+resource "google_project_service" "vpcaccess" {
+  service = "vpcaccess.googleapis.com"
+}
