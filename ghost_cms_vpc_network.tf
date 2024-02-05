@@ -15,7 +15,6 @@ resource "google_compute_global_address" "ghost_cms_vpc_global_address" {
   address_type  = "INTERNAL"
   prefix_length = 16
   network       = google_compute_network.ghost_cms_vpc_network.self_link
-  subnetwork    = google_compute_subnetwork.ghost_cms_vpc_subnetwork.self_link
 }
 
 resource "google_service_networking_connection" "ghost_cms_vpc_connection" {
