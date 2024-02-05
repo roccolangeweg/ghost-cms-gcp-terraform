@@ -9,3 +9,11 @@ variable "GCP_REGION" {
 variable "GCP_ZONE" {
   description = "The GCP zone"
 }
+
+variable "GHOST_CMS_MAILGUN_USERNAME" {
+  description = "The username for the Mailgun account"
+}
+
+variable "GHOST_CMS_MAILGUN_PASSWORD" {
+  description = "The password for the Mailgun account"
+}

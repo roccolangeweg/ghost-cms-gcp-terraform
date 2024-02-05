@@ -55,7 +55,31 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
       env {
         name  = "url"
         value = "https://ghost-cms-flbmbye73a-ez.a.run.app"
+      }
 
+      env {
+        name  = "mail__transport"
+        value = "SMTP"
+      }
+
+      env {
+        name  = "mail__options__service"
+        value = "Mailgun"
+      }
+
+      env {
+        name  = "mail__options__auth__user"
+        value = var.GHOST_CMS_MAILGUN_USERNAME
+      }
+
+      env {
+        name  = "mail__options__auth__pass"
+        value = var.GHOST_CMS_MAILGUN_PASSWORD
+      }
+
+      env {
+        name  = "mail__options__host"
+        value = "smtp.eu.mailgun.org"
       }
     }
   }
@@ -72,5 +96,5 @@ data "google_iam_policy" "ghost_cms" {
 
 resource "google_cloud_run_v2_service_iam_policy" "ghost_cms" {
   policy_data = data.google_iam_policy.ghost_cms.policy_data
-  name = google_cloud_run_v2_service.ghost_cms.name
+  name        = google_cloud_run_v2_service.ghost_cms.name
 }
