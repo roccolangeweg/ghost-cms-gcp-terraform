@@ -17,3 +17,7 @@ variable "GHOST_CMS_MAILGUN_USERNAME" {
 variable "GHOST_CMS_MAILGUN_PASSWORD" {
   description = "The password for the Mailgun account"
 }
+
+variable "GHOST_CMS_MAIL_FROM" {
+  description = "The email address to send emails from"
+}

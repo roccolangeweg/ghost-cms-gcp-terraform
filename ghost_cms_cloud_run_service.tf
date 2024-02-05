@@ -78,6 +78,11 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
       }
 
       env {
+        name = "mail__from"
+        value = var.GHOST_CMS_MAIL_FROM
+      }
+
+      env {
         name  = "mail__options__host"
         value = "smtp.eu.mailgun.org"
       }
