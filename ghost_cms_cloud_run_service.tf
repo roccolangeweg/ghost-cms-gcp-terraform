@@ -51,6 +51,12 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
         name  = "database__connection__database"
         value = google_sql_database.ghost_cms_mysql_database.name
       }
+
+      env {
+        name  = "url"
+        value = "https://ghost-cms-flbmbye73a-ez.a.run.app"
+
+      }
     }
   }
 }
