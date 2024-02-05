@@ -3,6 +3,12 @@ resource "google_compute_network" "ghost_cms_vpc_network" {
   auto_create_subnetworks = false
 }
 
+resource "google_compute_subnetwork" "ghost_cms_vpc_subnetwork" {
+  name          = "ghost-cms-vpc-subnetwork"
+  network       = google_compute_network.ghost_cms_vpc_network.id
+  ip_cidr_range = "10.2.0.0/16"
+}
+
 resource "google_compute_global_address" "ghost_cms_vpc_global_address" {
   name          = "ghost-cms-vpc-global-address"
   purpose       = "VPC_PEERING"
@@ -11,14 +17,8 @@ resource "google_compute_global_address" "ghost_cms_vpc_global_address" {
   network       = google_compute_network.ghost_cms_vpc_network.self_link
 }
 
-resource "google_service_networking_connection" "private_vpc_connection" {
+resource "google_service_networking_connection" "ghost_cms_vpc_connection" {
   network                 = google_compute_network.ghost_cms_vpc_network.self_link
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.ghost_cms_vpc_global_address.name]
-}
-
-resource "google_compute_subnetwork" "ghost_cms_vpc_subnetwork" {
-  name          = "ghost-cms-vpc-subnetwork"
-  network       = google_compute_network.ghost_cms_vpc_network.id
-  ip_cidr_range = "10.2.0.0/8"
 }
