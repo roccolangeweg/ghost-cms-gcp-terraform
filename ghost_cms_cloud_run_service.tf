@@ -10,8 +10,11 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
     }
 
     vpc_access {
-      connector = google_vpc_access_connector.ghost_cms_vpc_connector.id
-      egress = "PRIVATE_RANGES_ONLY"
+      network_interfaces {
+        network    = google_compute_network.ghost_cms_vpc_network.name
+        subnetwork = google_compute_subnetwork.ghost_cms_vpc_subnetwork.name
+      }
+      egress = "ALL_TRAFFIC"
     }
 
     containers {
