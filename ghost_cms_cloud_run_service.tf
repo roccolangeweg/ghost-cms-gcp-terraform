@@ -54,3 +54,17 @@ resource "google_cloud_run_v2_service" "ghost_cms" {
     }
   }
 }
+
+data "google_iam_policy" "ghost_cms" {
+  binding {
+    role    = "roles/run.invoker"
+    members = [
+      "allUsers"
+    ]
+  }
+}
+
+resource "google_cloud_run_v2_service_iam_policy" "ghost_cms" {
+  policy_data = data.google_iam_policy.ghost_cms.policy_data
+  name = google_cloud_run_v2_service.ghost_cms.name
+}
