@@ -1,3 +1,12 @@
+terraform {
+  cloud {
+    organization = "rocco-langeweg"
+    workspaces {
+        name = "ghost-cms-gcp-terraform"
+    }
+  }
+}
+
 provider "google" {
   project = var.GCP_PROJECT_ID
   region  = var.GCP_REGION
